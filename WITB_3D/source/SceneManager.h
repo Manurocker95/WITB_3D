@@ -22,6 +22,7 @@ Copyright (C) 2017 Manuel Rodríguez Matesanz
 
 #include <fstream>
 #include <sstream>
+#include <sys/unistd.h>
 #include "SplashScreen.h"
 #include "Game.h"
 
@@ -38,6 +39,7 @@ public:
 	void Update();
 	bool isOut();
 	void exitGame();
+	void ReadData();
 	void SaveTapsAndExit(int _taps);
 
 private:

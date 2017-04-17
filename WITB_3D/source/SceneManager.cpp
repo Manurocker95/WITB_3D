@@ -30,24 +30,45 @@ SceneManager* SceneManager::instance()
 
 void SceneManager::Start()
 {
-	//MAX SCORE DATA
-	ifstream myReadFile(DATA2_FILE);
-	m_taps = 0;
+	// We read data in 3ds/data/WITB/witb.sav
+	m_out = false;
+	ReadData();
+}
 
-	if (myReadFile.good())
+void SceneManager::ReadData()
+{	
+	m_taps = 0;
+	
+	std::ifstream myReadFile(DATA_FILE);
+
+	if (myReadFile)
 	{
 		myReadFile >> m_taps;
+		m_actualScene = new SplashScreen();
 	}
 	else
 	{
-		std::ofstream ofs;
-		ofs.open(DATA2_FILE + '\n');
-		ofs << m_taps;
-		ofs.close();
-	}
+		std::ifstream myReadFile2(DATA_FILE2);
 
-	m_out = false;
-	m_actualScene = new SplashScreen();
+		if (myReadFile2)
+		{
+			myReadFile2 >> m_taps;
+		}
+		else
+		{
+			std::ofstream outfile(DATA_FILE);
+			outfile << m_taps;
+			outfile.close();
+
+			std::ofstream outfile2(DATA_FILE2);
+			outfile2 << m_taps;
+			outfile2.close();
+
+			
+		}
+
+		m_actualScene = new GameScreen(m_taps);
+	}
 }
 
 void SceneManager::setActualScene(SCENES _scene)
@@ -63,7 +84,6 @@ void SceneManager::setActualScene(SCENES _scene)
 		m_actualScene = new GameScreen(m_taps);
 		break;
 	}
-	
 }
 
 void SceneManager::Update()
@@ -92,10 +112,9 @@ void SceneManager::SaveTapsAndExit(int _taps)
 {
 	if (_taps >= 0)
 	{
-		std::ofstream ofs;
-		ofs.open(DATA2_FILE);
-		ofs << _taps;
-		ofs.close();
+		std::ofstream outfile(DATA_FILE);
+		outfile << _taps;
+		outfile.close();
 	}
 
 	exitGame();

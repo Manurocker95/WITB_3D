@@ -37,18 +37,14 @@ typedef SSIZE_T ssize_t;
 #include <3ds.h>
 #include <sf2d.h>
 #include <sftd.h>
-#include <random>
-#include <time.h>
+#include <sys/stat.h>
+
 #include "SceneManager.h"
 
 ndspWaveBuf waveBuf;
 
 int main()
 {
-
-	// Set the random seed based on the time
-	srand(time(NULL));
-
 	// Inicializamos los servicios
 	// Srv
 	srvInit();
@@ -56,9 +52,7 @@ int main()
 	// SF2D + SFIL (Imágenes + gpu)
 	sf2d_init();
 	sf2d_set_clear_color(RGBA8(0, 0, 0, 255));
-	//sf2d_set_clear_color(RGBA8(255, 255, 255, 255));
-	sf2d_set_3D(true);
-	//sf2d_set_vblank_wait(0);
+	sf2d_set_3D(false);
 
 	//Sftd (Textos)
 	sftd_init();
@@ -69,6 +63,10 @@ int main()
 	// Sound - Necesita dumpear dsp de la consola
 	ndspInit();
 
+	//Creating Data
+	mkdir("/3ds", 0777);
+	mkdir("/3ds/data", 0777);
+	mkdir("/3ds/data/WITB", 0777);
 
 	SceneManager::instance()->Start();
 

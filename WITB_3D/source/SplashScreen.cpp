@@ -147,6 +147,7 @@ void SplashScreen::Update()
 
 void SplashScreen::GoToGame()
 {
+	delete (m_SFX);
 	sf2d_free_texture(m_bgTop);
 	sf2d_free_texture(m_bgBot);
 	SceneManager::instance()->setActualScene(SceneManager::GAME);

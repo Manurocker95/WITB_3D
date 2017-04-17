@@ -35,6 +35,7 @@ Copyright (C) 2017 Manuel Rodríguez Matesanz
 #include <stdio.h>
 
 #define MAXTAPS 1000000
+#define TIMER 5
 
 class GameScreen : public Scene
 {
@@ -53,6 +54,7 @@ private:
 
 	int m_taps;					// Número de Taps 
 	int m_currentBG;
+	int m_counter;
 	bool m_ended;				// Si hemos acabado 
 	float offset = 0;
 	touchPosition touch;

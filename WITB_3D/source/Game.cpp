@@ -61,7 +61,8 @@ void GameScreen::Start()
 void GameScreen::Draw()
 {
 	
-	offset = CONFIG_3D_SLIDERSTATE * 20;
+	// 3D effect
+	//offset = CONFIG_3D_SLIDERSTATE * 20;
 
 	if (!m_ended)
 	{
@@ -134,19 +135,18 @@ void GameScreen::CheckInputs()
 		SceneManager::instance()->SaveTapsAndExit(m_taps);
 	}
 
+	if (hidKeysDown() & KEY_START)
+	{
+		std::ofstream outfile(DATA_FILE);
+		outfile << m_taps;
+		outfile.close();
+	}
+
 	if (DEBUGMODE)
 	{
 		if (hidKeysDown() & KEY_R)
 		{
 			ResetBG();
-		}
-
-		if (hidKeysDown() & KEY_B)
-		{
-			std::ofstream ofs;
-			ofs.open(DATA2_FILE + '\n');
-			ofs << m_taps;
-			ofs.close();
 		}
 
 		if (hidKeysDown() & KEY_L)
@@ -178,12 +178,10 @@ void GameScreen::CheckInputs()
 		}
 		else
 		{
-			m_taps = 0;
-			m_player->setYOffset(0);
 			ResetBG();
 		}
 
-		m_sfxTap->play();
+		//m_sfxTap->play();
 	}
 }
 
@@ -227,6 +225,9 @@ void GameScreen::NewColorBG()
 
 void GameScreen::ResetBG()
 {
+	m_taps = 0;
+	m_player->setYOffset(0);
+
 	sf2d_free_texture(m_bgTop);
 	sf2d_free_texture(m_bgBot);
 

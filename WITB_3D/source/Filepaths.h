@@ -20,8 +20,8 @@ Copyright (C) 2017 Manuel Rodríguez Matesanz
 */
 
 //Documento de Maxima puntuacion 
-#define DATA_FILE "romfs:/resources/Files/data.txt"
-#define DATA2_FILE "sdmc:/witbdata.txt"
+#define DATA_FILE "sdmc:/3ds/data/WITB/witbdata.sav"
+#define DATA_FILE2 "sdmc:/witbdata.txt"
 
 /* Sonido */
 // Música de fondo
